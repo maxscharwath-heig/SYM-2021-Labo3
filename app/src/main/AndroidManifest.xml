@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/Theme.SYMLabo3">
         <activity
             android:name=".MainActivity"
@@ -29,8 +30,12 @@
         </activity>
         <activity
             android:name=".QRActivity"
-            tools:ignore="DuplicateActivity">
+            android:exported="true">
         </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>
