@@ -1,51 +1,75 @@
 package ch.heigvd.sym.sym_labo3
 
-import android.graphics.BitmapFactory
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
+import android.view.KeyEvent
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.journeyapps.barcodescanner.ScanOptions
-import android.widget.Toast
-import com.journeyapps.barcodescanner.ScanContract
-import com.journeyapps.barcodescanner.ScanIntentResult
-import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.ResultPoint
+import com.journeyapps.barcodescanner.*
+
+/**
+ * Inspired by the lib example:
+ * https://github.com/journeyapps/zxing-android-embedded/blob/master/sample/src/main/java/example/zxing/ContinuousCaptureActivity.java
+ */
 
 class QRActivity : AppCompatActivity() {
 
-    private lateinit var scanBtn : Button
     private lateinit var scanImage: ImageView
     private lateinit var scanText: TextView
     private lateinit var barcodeView: DecoratedBarcodeView
 
+    private val cameraPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        // TODO: Need to embed the scanner in the activity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr)
 
-        scanBtn = findViewById(R.id.scan_btn)
+        cameraPermission.launch(Manifest.permission.CAMERA)
+
         scanImage = findViewById(R.id.barcodeResultImg)
         scanText = findViewById(R.id.barcodeNumber)
-        // barcodeView = findViewById(R.id.barcodeCompound)
+        barcodeView = findViewById(R.id.barcode_embed)
 
-        scanBtn.setOnClickListener {
-            val options = ScanOptions()
-            options.setOrientationLocked(false)
-            options.setBarcodeImageEnabled(true)
-            barcodeLauncher.launch(options)
-            return@setOnClickListener
-        }
+        val formats: Collection<BarcodeFormat> =
+            listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39)
+        barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
+        barcodeView.initializeFromIntent(intent)
+        barcodeView.decodeContinuous(barcodeCallback)
     }
 
-    // Register the launcher and result handler
-    private val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
-        if (result.contents == null) {
-            Toast.makeText(this@QRActivity, "Cancelled", Toast.LENGTH_LONG).show()
-        } else {
-            scanText.text = result.contents
-            val bmImg = BitmapFactory.decodeFile(result.barcodeImagePath)
-            scanImage.setImageBitmap(bmImg)
+    private val barcodeCallback: BarcodeCallback = object : BarcodeCallback {
+        override fun barcodeResult(result: BarcodeResult) {
+            if (result.text == null || result.text == scanText.text) return
+            // TODO: Check if multiple in a row is working
+            scanText.text = result.text
+            scanImage.setImageBitmap(result.getBitmapWithResultPoints(Color.RED))
         }
+
+        override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
+    }
+
+    override fun onResume() {
+        super.onResume()
+        barcodeView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        barcodeView.pause()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return barcodeView.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
     }
 }

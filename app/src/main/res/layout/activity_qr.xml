@@ -10,23 +10,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<com.journeyapps.barcodescanner.CompoundBarcodeView
-            android:id="@+id/barcodeCompound"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="56dp" />
 
-        </com.journeyapps.barcodescanner.CompoundBarcodeView>-->
-
-        <Button
-            android:id="@+id/scan_btn"
+        <com.journeyapps.barcodescanner.DecoratedBarcodeView
+            android:id="@+id/barcode_embed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/scan_label" />
+            android:layout_height="412dp"
+            android:layout_weight=".60"
+            app:zxing_preview_scaling_strategy="centerCrop"
+            app:zxing_use_texture_view="false">
+
+        </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="119dp" />
 
         <ImageView
             android:id="@+id/barcodeResultImg"
             android:layout_width="match_parent"
-            android:layout_height="596dp"
+            android:layout_height="214dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
