@@ -3,6 +3,7 @@ package ch.heigvd.sym.sym_labo3
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -24,9 +25,12 @@ class BeaconActivity : AppCompatActivity() {
 
         val beaconsView = findViewById<RecyclerView>(R.id.beacons)
 
-        val beaconParser = BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24")
+        val beaconParser =
+            BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24")
 
-        val beaconManager =  BeaconManager.getInstanceForApplication(this)
+        val beaconManager = BeaconManager.getInstanceForApplication(this)
+        beaconManager.beaconParsers.clear()
+        beaconManager.beaconParsers.add(beaconParser)
         val region = Region("all-beacons-region", null, null, null)
         // Set up a Live Data observer so this Activity can get ranging callbacks
         // observer will be called each time the monitored regionState changes (inside vs. outside region)
@@ -34,12 +38,10 @@ class BeaconActivity : AppCompatActivity() {
         beaconManager.startRangingBeacons(region)
     }
 
-
     val rangingObserver = Observer<Collection<Beacon>> { beacons ->
         Log.d(TAG, "Ranged: ${beacons.count()} beacons")
         for (beacon: Beacon in beacons) {
             Log.d(TAG, "$beacon about ${beacon.distance} meters away")
-
         }
     }
 
@@ -56,11 +58,13 @@ class BeaconActivity : AppCompatActivity() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            TODO("Not yet implemented")
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.beacon, parent, false)
+
+            return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            TODO("Not yet implemented")
         }
 
         override fun getItemCount(): Int {
