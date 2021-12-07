@@ -7,4 +7,7 @@
     <string name="login_btn_label">Login</string>
     <string name="login_email_label">Email</string>
     <string name="login_password_label">Password</string>
+    <string name="security_level_max">Max Security</string>
+    <string name="security_level_medium">Medium Security</string>
+    <string name="security_level_low">Min Security</string>
 </resources>
