@@ -57,7 +57,7 @@ class NfcModule(val activity: AppCompatActivity) {
     }
     fun start(){
         if (nfcAdapter == null) return
-        val intent = Intent(activity.applicationContext, this.javaClass)
+        val intent = Intent(activity.applicationContext, activity.javaClass)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent = PendingIntent.getActivity(activity.applicationContext, 0, intent, 0)
         val filters = arrayOfNulls<IntentFilter>(1)
