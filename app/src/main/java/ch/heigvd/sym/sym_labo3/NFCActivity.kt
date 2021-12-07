@@ -8,11 +8,33 @@ import androidx.appcompat.app.AppCompatActivity
 import android.app.PendingIntent
 import android.content.ContentValues.TAG
 import android.content.IntentFilter
+import android.nfc.NdefMessage
+import android.nfc.NdefRecord
 import android.util.Log
+import java.nio.charset.Charset
+import kotlin.experimental.and
 import android.widget.Button
 import java.time.Duration
 import java.time.LocalDateTime
 
+data class Token(val mime:String, val languageCode:String, val payload:String){
+    companion object {
+        fun fromRecord(record: NdefRecord):Token{
+            val payloadBytes: ByteArray = record.payload
+            val isUTF8: Boolean = (payloadBytes[0] and 0x080.toByte()).toInt() == 0
+            val languageLength: Int = (payloadBytes[0] and 0x03F).toInt()
+            val textLength = payloadBytes.size - 1 - languageLength
+            val languageCode = String(payloadBytes, 1, languageLength, Charset.forName("US-ASCII"))
+            val payloadText = String(
+                payloadBytes,
+                1 + languageLength,
+                textLength,
+                Charset.forName(if (isUTF8) "UTF-8" else "UTF-16")
+            )
+            return Token(record.toMimeType(), languageCode, payloadText)
+        }
+    }
+}
 
 class NFCActivity : AppCompatActivity() {
 
@@ -101,8 +123,17 @@ class NFCActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        var action = intent?.action
-        if(action == null) action = "nothing"
-        Toast.makeText(this, action, Toast.LENGTH_SHORT).show()
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent?.action) {
+            intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->
+                val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
+                for (message in messages) {
+                    for (record in message.records) {
+                        val token = Token.fromRecord(record);
+                        Toast.makeText(this,token.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
 }
