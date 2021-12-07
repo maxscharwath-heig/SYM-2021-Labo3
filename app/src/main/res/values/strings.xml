@@ -3,5 +3,5 @@
     <string name="qr_label">Code-barres</string>
     <string name="beacon_label">iBeacon</string>
     <string name="nfc_label">NFC</string>
-    <string name="scan_label">Scan barcode</string>
+    <string name="must_access_camera">L\'accès à la caméra est nécessaire</string>
 </resources>

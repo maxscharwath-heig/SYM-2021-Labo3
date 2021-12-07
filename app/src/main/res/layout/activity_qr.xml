@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,10 +10,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/scan_btn"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/scan_label" />
+            android:layout_height="56dp" />
+
+        <com.journeyapps.barcodescanner.DecoratedBarcodeView
+            android:id="@+id/barcode_embed"
+            android:layout_width="match_parent"
+            android:layout_height="412dp"
+            android:layout_weight=".60"
+            app:zxing_preview_scaling_strategy="centerCrop"
+            app:zxing_use_texture_view="false">
+
+        </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="119dp" />
+
+        <ImageView
+            android:id="@+id/barcodeResultImg"
+            android:layout_width="match_parent"
+            android:layout_height="214dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/barcodeNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
