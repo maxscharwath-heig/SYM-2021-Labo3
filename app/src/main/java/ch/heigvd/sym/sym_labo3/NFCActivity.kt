@@ -15,16 +15,21 @@ import android.util.Log
 
 
 class NFCActivity : AppCompatActivity() {
+
+
     private var nfcAdapter: NfcAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc)
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+
+
+
         if (nfcAdapter == null) {
             Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
             finish();
-            return;
+            return
 
         }
         if (!nfcAdapter?.isEnabled!!) {

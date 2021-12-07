@@ -4,4 +4,7 @@
     <string name="beacon_label">iBeacon</string>
     <string name="nfc_label">NFC</string>
     <string name="scan_label">Scan barcode</string>
+    <string name="login_btn_label">Login</string>
+    <string name="login_email_label">Email</string>
+    <string name="login_password_label">Password</string>
 </resources>
