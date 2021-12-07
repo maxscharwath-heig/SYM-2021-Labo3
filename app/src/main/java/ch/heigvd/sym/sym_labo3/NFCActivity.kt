@@ -8,27 +8,40 @@ import androidx.appcompat.app.AppCompatActivity
 import android.app.PendingIntent
 import android.content.ContentValues.TAG
 import android.content.IntentFilter
-import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
-import android.nfc.Tag
-import android.nfc.tech.IsoDep
 import android.util.Log
+import android.widget.Button
+import java.time.Duration
+import java.time.LocalDateTime
 
 
 class NFCActivity : AppCompatActivity() {
 
+    companion object {
+        private enum class SecurityLevel(val duration: Int) {
+            HIGH(10),
+            MEDIUM(30),
+            LOW(60);
+        }
+    }
 
+    private lateinit var max_button : Button
+    private lateinit var medium_button : Button
+    private lateinit var low_button : Button
     private var nfcAdapter: NfcAdapter? = null
+    private var lastNFCTime : LocalDateTime? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
-
+        max_button = findViewById(R.id.btn_max_secu)
+        medium_button = findViewById(R.id.btn_med_secu)
+        low_button = findViewById(R.id.btn_low_secu)
 
         if (nfcAdapter == null) {
-            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-            finish();
+            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show()
+            finish()
             return
 
         }
@@ -39,6 +52,17 @@ class NFCActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+        max_button.setOnClickListener {
+            if (Duration.between(lastNFCTime, LocalDateTime.now()).seconds <= SecurityLevel.HIGH.duration) {
+                Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "Too late !", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        lastNFCTime = LocalDateTime.now()
     }
 
     private fun setupForegroundDispatch() {
