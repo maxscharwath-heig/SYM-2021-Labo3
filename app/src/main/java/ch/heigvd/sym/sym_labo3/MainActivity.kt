@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         NFCActivityBtn.setOnClickListener {
-            val intent = Intent(this, NFCActivity::class.java)
+            val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
 
             return@setOnClickListener

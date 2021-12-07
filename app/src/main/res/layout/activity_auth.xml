@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AuthActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="72dp" />
+
+        <EditText
+            android:id="@+id/login_email_input"
+            android:layout_width="416dp"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="@string/login_email_label"
+            android:inputType="textEmailAddress" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="79dp" />
+
+        <EditText
+            android:id="@+id/login_pwd_input"
+            android:layout_width="406dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/login_password_label"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_btn_label" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
