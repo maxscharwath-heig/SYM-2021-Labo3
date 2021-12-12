@@ -17,4 +17,5 @@
     <string name="security_granted">Level of security granted</string>
     <string name="security_not_granted">Level of security denied</string>
     <string name="access_renewed">Access renewed</string>
+    <string name="must_access_camera">L\'accès à la caméra est nécessaire</string>
 </resources>
