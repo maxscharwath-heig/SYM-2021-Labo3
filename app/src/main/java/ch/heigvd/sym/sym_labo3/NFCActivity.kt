@@ -29,11 +29,12 @@ class NFCActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc)
-        nfcModule =  NfcModule(this);
+        nfcModule = NfcModule(this)
         nfcModule.init()
         nfcModule.setTokenListener(object:TokenEventListener{
             override fun handleToken(token: Token) {
-                Toast.makeText(this@NFCActivity,token.toString(), Toast.LENGTH_SHORT).show()
+                lastNFCTime = LocalDateTime.now()
+                Toast.makeText(this@NFCActivity, "Access re-granted", Toast.LENGTH_SHORT).show()
             }
         })
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
@@ -42,16 +43,21 @@ class NFCActivity : AppCompatActivity() {
         medium_button = findViewById(R.id.btn_med_secu)
         low_button = findViewById(R.id.btn_low_secu)
 
-        max_button.setOnClickListener {
-            if (Duration.between(lastNFCTime, LocalDateTime.now()).seconds <= SecurityLevel.HIGH.duration) {
-                Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(this, "Too late !", Toast.LENGTH_SHORT).show()
-            }
-        }
+
+        max_button.setOnClickListener { secureBehaviour(SecurityLevel.HIGH) }
+        medium_button.setOnClickListener { secureBehaviour(SecurityLevel.MEDIUM) }
+        low_button.setOnClickListener { secureBehaviour(SecurityLevel.LOW) }
 
         lastNFCTime = LocalDateTime.now()
+    }
+
+    private fun secureBehaviour (level: SecurityLevel) {
+        if (Duration.between(lastNFCTime, LocalDateTime.now()).seconds <= level.duration) {
+            Toast.makeText(this@NFCActivity, getString(R.string.security_granted), Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(this@NFCActivity, getString(R.string.security_not_granted), Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onResume() {

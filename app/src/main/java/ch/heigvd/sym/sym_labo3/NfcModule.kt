@@ -17,9 +17,9 @@ interface TokenEventListener {
     fun handleToken(token: Token)
 }
 
-data class Token(val mime:String, val languageCode:String, val payload:String){
+data class Token(val mime: String, val languageCode: String, val payload: String) {
     companion object {
-        fun fromRecord(record: NdefRecord):Token{
+        fun fromRecord(record: NdefRecord): Token {
             val payloadBytes: ByteArray = record.payload
             val isUTF8: Boolean = (payloadBytes[0] and 0x080.toByte()).toInt() == 0
             val languageLength: Int = (payloadBytes[0] and 0x03F).toInt()
@@ -36,10 +36,10 @@ data class Token(val mime:String, val languageCode:String, val payload:String){
     }
 }
 
-class NfcModule(val activity: AppCompatActivity) {
+class NfcModule(private val activity: AppCompatActivity) {
     private var tokenEventListener: TokenEventListener? = null
     private var nfcAdapter: NfcAdapter? = null
-    fun init(){
+    fun init() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity)
 
         if (nfcAdapter == null) {
@@ -55,7 +55,8 @@ class NfcModule(val activity: AppCompatActivity) {
             ).show()
         }
     }
-    fun start(){
+
+    fun start() {
         if (nfcAdapter == null) return
         val intent = Intent(activity.applicationContext, activity.javaClass)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -74,7 +75,7 @@ class NfcModule(val activity: AppCompatActivity) {
         nfcAdapter!!.enableForegroundDispatch(activity, pendingIntent, filters, techList)
     }
 
-    fun stop(){
+    fun stop() {
         nfcAdapter?.disableForegroundDispatch(activity)
     }
 

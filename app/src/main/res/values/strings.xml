@@ -7,7 +7,13 @@
     <string name="login_btn_label">Login</string>
     <string name="login_email_label">Email</string>
     <string name="login_password_label">Password</string>
-    <string name="security_level_max">Max Security</string>
-    <string name="security_level_medium">Medium Security</string>
-    <string name="security_level_low">Min Security</string>
+    <string name="security_level_max">Max Security (10s)</string>
+    <string name="security_level_medium">Medium Security (30s)</string>
+    <string name="security_level_low">Min Security (60s)</string>
+    <string name="has_nfc_label_no">Please scan NFC</string>
+    <string name="has_nfc_label_yes">Access granted !</string>
+    <string name="should_scan_tag">Please scan NFC tag</string>
+    <string name="invalid_creds">Invalid credentials</string>
+    <string name="security_granted">Level of security granted</string>
+    <string name="security_not_granted">Level of security denied</string>
 </resources>

@@ -35,6 +35,17 @@
             android:hint="@string/login_password_label"
             android:inputType="textPassword" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="79dp" />
+
+        <CheckBox
+            android:id="@+id/nfc_granted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="@string/has_nfc_label_no" />
+
         <Button
             android:id="@+id/login_btn"
             android:layout_width="match_parent"
