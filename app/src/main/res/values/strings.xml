@@ -16,4 +16,5 @@
     <string name="invalid_creds">Invalid credentials</string>
     <string name="security_granted">Level of security granted</string>
     <string name="security_not_granted">Level of security denied</string>
+    <string name="access_renewed">Access renewed</string>
 </resources>

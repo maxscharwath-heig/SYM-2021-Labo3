@@ -36,6 +36,6 @@
             android:id="@+id/btn_low_secu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/security_level_medium" />
+            android:text="@string/security_level_low" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
