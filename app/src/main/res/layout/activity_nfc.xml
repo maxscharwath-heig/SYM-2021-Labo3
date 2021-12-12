@@ -3,4 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="118dp" />
+
+        <Button
+            android:id="@+id/btn_max_secu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/security_level_max" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="93dp" />
+
+        <Button
+            android:id="@+id/btn_med_secu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/security_level_medium" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="93dp" />
+
+        <Button
+            android:id="@+id/btn_low_secu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/security_level_low" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
