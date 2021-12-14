@@ -32,7 +32,13 @@ class AuthActivity : BaseNFCActivity() {
 
         submit.setOnClickListener {
             // If credentials are wrong, reset NFC access
-            if (!crendentials.contains(Pair(emailInput.text?.toString(), passwordInput.text?.toString()))) {
+            if (!crendentials.contains(
+                    Pair(
+                        emailInput.text?.toString(),
+                        passwordInput.text?.toString()
+                    )
+                )
+            ) {
                 Toast.makeText(this, getString(R.string.invalid_creds), Toast.LENGTH_SHORT).show()
                 toggleNFCAuthConfirm(false)
                 return@setOnClickListener
@@ -58,8 +64,9 @@ class AuthActivity : BaseNFCActivity() {
         }
     }
 
-    private fun toggleNFCAuthConfirm (state: Boolean) {
+    private fun toggleNFCAuthConfirm(state: Boolean) {
         isNFCAuthOk = state
         rdNFCGranted.isChecked = state
+        rdNFCGranted.text = if (state) getString(R.string.has_nfc_label_yes) else getString(R.string.has_nfc_label_no)
     }
 }
