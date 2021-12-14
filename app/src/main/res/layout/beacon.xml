@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/UUID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="UUID"
+        android:text="@string/uuid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/id"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +18,7 @@
         android:id="@+id/minor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="minor :"
+        android:text="@string/minor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/major"
         app:layout_constraintTop_toBottomOf="@+id/UUID" />
@@ -27,7 +27,7 @@
         android:id="@+id/major"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="major :"
+        android:text="@string/major"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UUID" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/rssi"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="rssi :"
+        android:text="@string/rssi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/major" />
 
@@ -43,7 +43,7 @@
         android:id="@+id/distance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="distance :"
+        android:text="@string/distance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/rssi"
         app:layout_constraintTop_toBottomOf="@+id/minor" />
@@ -52,7 +52,7 @@
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="last detection date :"
+        android:text="@string/last_detection_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rssi" />
@@ -61,7 +61,7 @@
         android:id="@+id/id"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="Id :"
+        android:text="@string/id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
