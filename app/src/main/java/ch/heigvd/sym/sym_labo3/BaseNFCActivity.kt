@@ -5,19 +5,22 @@ import android.nfc.NfcAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Abstract class of NFCActivity who implements NFCModule
+ */
 abstract class BaseNFCActivity : AppCompatActivity() {
 
-    private lateinit var nfcModule: NfcModule
+    private lateinit var nfcModule: NFCModule
     private var nfcAdapter: NfcAdapter? = null
     protected val wantedPayload = "1 2 3 4"
 
-    override fun onCreate (savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Bind the NFC module
-        nfcModule = NfcModule(this)
+        nfcModule = NFCModule(this)
         nfcModule.init()
-        nfcModule.setTokenListener(object: TokenEventListener {
+        nfcModule.setTokenListener(object : TokenEventListener {
             override fun handleToken(token: Token) {
                 onTokenBehaviour(token)
             }

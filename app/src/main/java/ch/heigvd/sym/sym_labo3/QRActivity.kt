@@ -11,7 +11,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
-import com.journeyapps.barcodescanner.*
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import com.journeyapps.barcodescanner.DefaultDecoderFactory
 
 /**
  * Activity to live scan barcodes & QR codes
@@ -27,7 +30,7 @@ class QRActivity : AppCompatActivity() {
 
     // Ask for camera access permission
     private val cameraPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {isGranted ->
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
             if (!isGranted) {
                 closeOnNotGranted()
@@ -35,7 +38,7 @@ class QRActivity : AppCompatActivity() {
         }
 
     // Behaviour if camera access is not granted
-    private fun closeOnNotGranted () {
+    private fun closeOnNotGranted() {
         Toast.makeText(this, R.string.must_access_camera, Toast.LENGTH_SHORT).show()
         finish()
     }
