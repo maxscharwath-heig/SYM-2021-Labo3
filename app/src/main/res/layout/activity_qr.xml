@@ -26,17 +26,22 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="119dp" />
+            android:layout_height="70dp" />
 
         <ImageView
             android:id="@+id/barcodeResultImg"
             android:layout_width="match_parent"
-            android:layout_height="214dp"
+            android:layout_height="235dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/barcodeNumber"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

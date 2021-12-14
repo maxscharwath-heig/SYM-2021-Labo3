@@ -61,5 +61,6 @@ class AuthActivity : BaseNFCActivity() {
     private fun toggleNFCAuthConfirm (state: Boolean) {
         isNFCAuthOk = state
         rdNFCGranted.isChecked = state
+        rdNFCGranted.text = if (state) getString(R.string.has_nfc_label_yes) else getString(R.string.has_nfc_label_no)
     }
 }
