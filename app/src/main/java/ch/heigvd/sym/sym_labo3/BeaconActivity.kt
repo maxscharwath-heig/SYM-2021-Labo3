@@ -12,9 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.altbeacon.beacon.*
+import org.altbeacon.beacon.Beacon
+import org.altbeacon.beacon.BeaconManager
+import org.altbeacon.beacon.BeaconParser
+import org.altbeacon.beacon.Region
 import java.time.LocalDateTime
-import kotlin.math.round
 
 
 class BeaconActivity : AppCompatActivity() {

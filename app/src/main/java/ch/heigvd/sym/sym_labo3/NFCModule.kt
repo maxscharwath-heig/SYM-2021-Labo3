@@ -17,10 +17,17 @@ interface TokenEventListener {
     fun handleToken(token: Token)
 }
 
+/**
+ * Represent NDEF record parsed
+ */
 data class Token(val mime: String, val languageCode: String, val payload: String) {
     companion object {
+        /**
+         * Parse a NDEF record to Token object
+         */
         fun fromRecord(record: NdefRecord): Token {
             val payloadBytes: ByteArray = record.payload
+            //parsing the payload to remove language code and use correct charset
             val isUTF8: Boolean = (payloadBytes[0] and 0x080.toByte()).toInt() == 0
             val languageLength: Int = (payloadBytes[0] and 0x03F).toInt()
             val textLength = payloadBytes.size - 1 - languageLength
@@ -36,14 +43,22 @@ data class Token(val mime: String, val languageCode: String, val payload: String
     }
 }
 
-class NfcModule(private val activity: AppCompatActivity) {
+/**
+ * NfcModule is used to detect and parse NFC Tag
+ * @remarks Need to be linked to an Activity
+ */
+class NFCModule(private val activity: AppCompatActivity) {
     private var tokenEventListener: TokenEventListener? = null
     private var nfcAdapter: NfcAdapter? = null
+
+    /**
+     * Init the module
+     */
     fun init() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity)
 
         if (nfcAdapter == null) {
-            Toast.makeText(activity, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "This device doesn't support NFC.", Toast.LENGTH_LONG).show()
             return
 
         }
@@ -56,6 +71,9 @@ class NfcModule(private val activity: AppCompatActivity) {
         }
     }
 
+    /**
+     * Start scanning
+     */
     fun start() {
         if (nfcAdapter == null) return
         val intent = Intent(activity.applicationContext, activity.javaClass)
@@ -63,7 +81,7 @@ class NfcModule(private val activity: AppCompatActivity) {
         val pendingIntent = PendingIntent.getActivity(activity.applicationContext, 0, intent, 0)
         val filters = arrayOfNulls<IntentFilter>(1)
         val techList = arrayOf<Array<String>>()
-        // On souhaite être notifié uniquement pour les TAG au format NDEF
+        // Detect only NDEF tag
         filters[0] = IntentFilter()
         filters[0]!!.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED)
         filters[0]!!.addCategory(Intent.CATEGORY_DEFAULT)
@@ -75,6 +93,9 @@ class NfcModule(private val activity: AppCompatActivity) {
         nfcAdapter!!.enableForegroundDispatch(activity, pendingIntent, filters, techList)
     }
 
+    /**
+     * Stop scanning
+     */
     fun stop() {
         nfcAdapter?.disableForegroundDispatch(activity)
     }
@@ -85,7 +106,7 @@ class NfcModule(private val activity: AppCompatActivity) {
                 val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
                 for (message in messages) {
                     for (record in message.records) {
-                        tokenEventListener?.handleToken(Token.fromRecord(record));
+                        tokenEventListener?.handleToken(Token.fromRecord(record))
                     }
                 }
             }
@@ -93,6 +114,9 @@ class NfcModule(private val activity: AppCompatActivity) {
 
     }
 
+    /**
+     * Set Token Listener
+     */
     fun setTokenListener(tokenEventListener: TokenEventListener) {
         this.tokenEventListener = tokenEventListener
     }

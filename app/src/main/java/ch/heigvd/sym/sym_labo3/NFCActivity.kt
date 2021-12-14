@@ -1,8 +1,8 @@
 package ch.heigvd.sym.sym_labo3
 
 import android.os.Bundle
-import android.widget.Toast
 import android.widget.Button
+import android.widget.Toast
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -16,10 +16,10 @@ class NFCActivity : BaseNFCActivity() {
         }
     }
 
-    private lateinit var maxButton : Button
-    private lateinit var mediumButton : Button
-    private lateinit var lowButton : Button
-    private var lastNFCTime : LocalDateTime? = null
+    private lateinit var maxButton: Button
+    private lateinit var mediumButton: Button
+    private lateinit var lowButton: Button
+    private var lastNFCTime: LocalDateTime? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,19 +36,27 @@ class NFCActivity : BaseNFCActivity() {
         lastNFCTime = LocalDateTime.now()
     }
 
-    private fun secureBehaviour (level: SecurityLevel) {
+    private fun secureBehaviour(level: SecurityLevel) {
         if (Duration.between(lastNFCTime, LocalDateTime.now()).seconds <= level.duration) {
-            Toast.makeText(this@NFCActivity, getString(R.string.security_granted), Toast.LENGTH_SHORT).show()
-        }
-        else {
-            Toast.makeText(this@NFCActivity, getString(R.string.security_not_granted), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@NFCActivity,
+                getString(R.string.security_granted),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                this@NFCActivity,
+                getString(R.string.security_not_granted),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     override fun onTokenBehaviour(token: Token) {
         if (token.payload == wantedPayload) {
             lastNFCTime = LocalDateTime.now()
-            Toast.makeText(this@NFCActivity, getString(R.string.access_renewed), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@NFCActivity, getString(R.string.access_renewed), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }
