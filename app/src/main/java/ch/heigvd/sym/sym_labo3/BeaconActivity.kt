@@ -26,8 +26,6 @@ class BeaconActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_beacon)
 
-
-
         //Here we set the beaconManager to be able to detect the beacons we're interested in
         val beaconsView = findViewById<RecyclerView>(R.id.beacons)
         val beaconParser = BeaconParser().setBeaconLayout(BEACON_PARSER)

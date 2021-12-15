@@ -1,5 +1,6 @@
 package ch.heigvd.sym.sym_labo3
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,7 +11,7 @@ import android.widget.Toast
 class AuthActivity : BaseNFCActivity() {
 
     companion object {
-        private val crendentials = arrayListOf(Pair("test@test.ch", "1234"))
+        private val credentials = arrayListOf(Pair("test@test.ch", "1234"))
     }
 
     private lateinit var emailInput: EditText
@@ -32,13 +33,7 @@ class AuthActivity : BaseNFCActivity() {
 
         submit.setOnClickListener {
             // If credentials are wrong, reset NFC access
-            if (!crendentials.contains(
-                    Pair(
-                        emailInput.text?.toString(),
-                        passwordInput.text?.toString()
-                    )
-                )
-            ) {
+            if (!credentials.contains(Pair(emailInput.text?.toString(), passwordInput.text?.toString()))) {
                 Toast.makeText(this, getString(R.string.invalid_creds), Toast.LENGTH_SHORT).show()
                 toggleNFCAuthConfirm(false)
                 return@setOnClickListener

@@ -8,6 +8,9 @@ import java.time.LocalDateTime
 
 class NFCActivity : BaseNFCActivity() {
 
+    /**
+     * Levels of security represented by their effective times
+     */
     companion object {
         private enum class SecurityLevel(val duration: Int) {
             HIGH(10),
@@ -36,6 +39,9 @@ class NFCActivity : BaseNFCActivity() {
         lastNFCTime = LocalDateTime.now()
     }
 
+    /**
+     * Check if level of security is granted & run behaviour
+     */
     private fun secureBehaviour(level: SecurityLevel) {
         if (Duration.between(lastNFCTime, LocalDateTime.now()).seconds <= level.duration) {
             Toast.makeText(
@@ -52,11 +58,13 @@ class NFCActivity : BaseNFCActivity() {
         }
     }
 
+    /**
+     * Reset timer on valid NFC tag detection
+     */
     override fun onTokenBehaviour(token: Token) {
         if (token.payload == wantedPayload) {
             lastNFCTime = LocalDateTime.now()
-            Toast.makeText(this@NFCActivity, getString(R.string.access_renewed), Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this@NFCActivity, getString(R.string.access_renewed), Toast.LENGTH_SHORT).show()
         }
     }
 }

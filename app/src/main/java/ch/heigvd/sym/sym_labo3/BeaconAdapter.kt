@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.altbeacon.beacon.Beacon
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
- * adapter for the recyclerview for the beacons
+ * Adapter for the recyclerview for the beacons
  */
 class BeaconAdapter(private val beaconList: List<Beacon>, private val context : Context) :
     RecyclerView.Adapter<BeaconAdapter.ViewHolder>() {
@@ -25,54 +26,15 @@ class BeaconAdapter(private val beaconList: List<Beacon>, private val context : 
     //Binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val beacon = beaconList[position]
-        val time = LocalDateTime.now()
-        //Here using string builders seemed more readable
-        holder.idTextView.text = buildString {
-            append(context.getString(R.string.id))
-            append(" ")
-            append(position + 1)
-        }
-        holder.uuidTextView.text = buildString {
-            append(context.getString(R.string.uuid))
-            append(" ")
-            append(beacon.id1)
-        }
-        holder.majorTextView.text = buildString {
-            append(context.getString(R.string.major))
-            append(" ")
-            append(beacon.id2)
-        }
-        holder.minorTextView.text = buildString {
-            append(context.getString(R.string.minor))
-            append(" ")
-            append(beacon.id3)
-        }
-        holder.rssiTextView.text = buildString {
-            append(context.getString(R.string.rssi))
-            append(" ")
-            append(beacon.rssi)
-        }
-        holder.distanceTextView.text = buildString {
-            append(context.getString(R.string.distance))
-            append(" ")
-            append(String.format("%.3f", beacon.distance))
-            append(" m")
-        }
-        holder.dateTextView.text = buildString {
-            append(context.getString(R.string.last_detection_date))
-            append(" ")
-            append(time.dayOfMonth)
-            append("-")
-            append(time.monthValue)
-            append("-")
-            append(time.year)
-            append("  ")
-            append(time.hour)
-            append(":")
-            append(time.minute)
-            append(":")
-            append(time.second)
-        }
+        val time = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss").format(LocalDateTime.now())
+
+        holder.idTextView.text = context.getString(R.string.id, position + 1)
+        holder.uuidTextView.text = context.getString(R.string.uuid, beacon.id1)
+        holder.majorTextView.text = context.getString(R.string.major, beacon.id2)
+        holder.minorTextView.text = context.getString(R.string.minor, beacon.id3)
+        holder.rssiTextView.text = context.getString(R.string.rssi, beacon.rssi)
+        holder.distanceTextView.text = context.getString(R.string.distance, String.format("%.3f", beacon.distance))
+        holder.dateTextView.text = context.getString(R.string.last_detection_date, time)
     }
 
     //Return the number of the items in the list

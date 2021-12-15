@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var barcodeActivityBtn: Button
     private lateinit var beaconActivityBtn: Button
-    private lateinit var NFCActivityBtn: Button
+    private lateinit var nfcActivityBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         barcodeActivityBtn = findViewById(R.id.btn_qr_launch)
         beaconActivityBtn = findViewById(R.id.btn_beacon_launch)
-        NFCActivityBtn = findViewById(R.id.btn_nfc_launch)
+        nfcActivityBtn = findViewById(R.id.btn_nfc_launch)
 
         barcodeActivityBtn.setOnClickListener {
             val intent = Intent(this, QRActivity::class.java)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             return@setOnClickListener
         }
 
-        NFCActivityBtn.setOnClickListener {
+        nfcActivityBtn.setOnClickListener {
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
 

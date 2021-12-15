@@ -18,12 +18,12 @@
     <string name="security_not_granted">Level of security denied</string>
     <string name="access_renewed">Access renewed</string>
     <string name="must_access_camera">L\'accès à la caméra est nécessaire</string>
-    <string name="uuid">UUID :</string>
-    <string name="minor">minor :</string>
-    <string name="major">major :</string>
-    <string name="rssi">rssi :</string>
-    <string name="distance">distance :</string>
-    <string name="last_detection_date">last detection date :</string>
-    <string name="id">Id :</string>
-    <string name="trying_to_detect_beacons">Trying to detect beacons ...</string>
+    <string name="uuid">UUID : %1$s</string>
+    <string name="minor">minor : %1$s</string>
+    <string name="major">major : %1$s</string>
+    <string name="rssi">rssi : %1$d</string>
+    <string name="distance">distance : %1$s m</string>
+    <string name="last_detection_date">last detection date : %1$s</string>
+    <string name="id">Id : %1$d</string>
+    <string name="trying_to_detect_beacons">Trying to detect beacons …</string>
 </resources>

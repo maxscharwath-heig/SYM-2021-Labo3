@@ -28,16 +28,25 @@ abstract class BaseNFCActivity : AppCompatActivity() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
     }
 
+    /**
+     * Resume NFC
+     */
     override fun onResume() {
         super.onResume()
         nfcModule.start()
     }
 
+    /**
+     * Pause NFC
+     */
     override fun onPause() {
         super.onPause()
         nfcModule.stop()
     }
 
+    /**
+     *
+     */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         nfcModule.onIntent(intent)
@@ -46,5 +55,5 @@ abstract class BaseNFCActivity : AppCompatActivity() {
     /**
      * Specify the behaviour on NFC detection
      */
-    abstract fun onTokenBehaviour(token: Token)
+    protected abstract fun onTokenBehaviour(token: Token)
 }

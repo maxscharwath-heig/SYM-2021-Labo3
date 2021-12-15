@@ -53,6 +53,7 @@ class QRActivity : AppCompatActivity() {
         scanText = findViewById(R.id.barcodeNumber)
         barcodeView = findViewById(R.id.barcode_embed)
 
+        // Specify the compatible codes & bind scanner callback
         val formats: Collection<BarcodeFormat> =
             listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39)
         barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
@@ -60,6 +61,7 @@ class QRActivity : AppCompatActivity() {
         barcodeView.decodeContinuous(barcodeCallback)
     }
 
+    // On barcode detection, update the view
     private val barcodeCallback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
             // Prevent scanning the same barcode twice in a row
@@ -73,11 +75,13 @@ class QRActivity : AppCompatActivity() {
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }
 
+    // Resume scan
     override fun onResume() {
         super.onResume()
         barcodeView.resume()
     }
 
+    // Pause scan
     override fun onPause() {
         super.onPause()
         barcodeView.pause()
