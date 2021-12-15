@@ -9,19 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import org.altbeacon.beacon.Beacon
 import java.time.LocalDateTime
 
+/**
+ * adapter for the recyclerview for the beacons
+ */
 class BeaconAdapter(private val beaconList: List<Beacon>, private val context : Context) :
     RecyclerView.Adapter<BeaconAdapter.ViewHolder>() {
 
+    //When we create a viewHolder we inflate it
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.beacon, parent, false)
         return ViewHolder(view)
     }
 
-    // binds the list items to a view
+    //Binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val beacon = beaconList[position]
         val time = LocalDateTime.now()
+        //Here using string builders seemed more readable
         holder.idTextView.text = buildString {
             append(context.getString(R.string.id))
             append(" ")
@@ -70,12 +75,12 @@ class BeaconAdapter(private val beaconList: List<Beacon>, private val context : 
         }
     }
 
-    // return the number of the items in the list
+    //Return the number of the items in the list
     override fun getItemCount(): Int {
         return beaconList.size
     }
 
-    // Holds the views for adding it to image and text
+    //Holds the views for a specific beacon
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val idTextView: TextView = itemView.findViewById(R.id.id)
         val uuidTextView: TextView = itemView.findViewById(R.id.UUID)
