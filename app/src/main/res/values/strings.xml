@@ -26,4 +26,5 @@
     <string name="last_detection_date">last detection date : %1$s</string>
     <string name="id">Id : %1$d</string>
     <string name="trying_to_detect_beacons">Trying to detect beacons …</string>
+    <string name="must_access_location">L\'accès à la localisation est nécessaire</string>
 </resources>

@@ -1,6 +1,9 @@
 package ch.heigvd.sym.sym_labo3
 
+import android.Manifest
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -22,9 +25,26 @@ class BeaconActivity : AppCompatActivity() {
 
     private lateinit var beaconArrayAdapter: BeaconAdapter
 
+    // Ask for location access permission
+    private val beaconPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
+            if (!isGranted) {
+                closeOnNotGrantedLocation()
+            }
+        }
+
+    // Behaviour if location access is not granted
+    private fun closeOnNotGrantedLocation() {
+        Toast.makeText(this, R.string.must_access_location, Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_beacon)
+
+        beaconPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
         //Here we set the beaconManager to be able to detect the beacons we're interested in
         val beaconsView = findViewById<RecyclerView>(R.id.beacons)
